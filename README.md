@@ -1,43 +1,45 @@
-# kbone
-
-kbone 是一个致力于微信小程序和 Web 端同构的解决方案。
-
-## 简介
-
-微信小程序的底层模型和 Web 端不同，我们想直接把 Web 端的代码挪到小程序环境内执行是不可能的。kbone 的诞生就是为了解决这个问题，它实现了一个适配器，在适配层里模拟出了浏览器环境，让 Web 端的代码可以不做什么改动便可运行在小程序里。
-
-这里有个简单的[代码片段](https://developers.weixin.qq.com/miniprogram/dev/devtools/minicode.html)：[https://developers.weixin.qq.com/s/R9Hm0Qm67Acd](https://developers.weixin.qq.com/s/R9Hm0Qm67Acd)，可以使用开发者工具打开看看效果。
-
-因为 kbone 是通过提供适配器的方式来实现同构，所以它的优势很明显：
-
-* 大部分流行的前端框架都能够在 kbone 上运行，比如 Vue、React、Preact 等。
-* 支持更为完整的前端框架特性，因为 kbone 不会对框架底层进行删改（比如 Vue 中的 v-html 指令、Vue-router 插件）。
-* 提供了常用的 dom/bom 接口，让用户代码无需做太大改动便可从 Web 端迁移到小程序端。
-* 在小程序端运行时，仍然可以使用小程序本身的特性（比如像 live-player 内置组件、分包功能）。
-* 提供了一些 Dom 扩展接口，让一些无法完美兼容到小程序端的接口也有替代使用方案（比如 getComputedStyle 接口）。
-
-## 使用
-
-为了可以让开发者可以更自由地进行项目的搭建，以下提供了三种方式，任选其一即可：
-
-### 使用 kbone-cli 快速开发
-
-对于新项目，可以使用 `kbone-cli` 来创建项目，首先安装 `kbone-cli`:
-
-```
-npm install -g kbone-cli
-```
-
-创建项目：
-
-```
-kbone init my-app
-```
-
-进入项目，按照 README.md 的指引进行开发：
-
-```
-// 开发小程序端
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">骨干</font></font></h1><a id="user-content-kbone" class="anchor-element" aria-label="永久链接：kbone" href="#kbone"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">kbone是一个致力于微信小程序和Web端同构的解决方案。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">简介</font></font></h2><a id="user-content-简介" class="anchor-element" aria-label="永久链接： 简介" href="#简介"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">微信小程序的基础模型和Web端不同，我们想直接把Web端的代码挪到小程序环境内执行是不可能的。kbone的诞生就是为了解决这个问题，它实现了一个闹钟，在装备层里模拟浏览生长器环境，让Web端的代码不可以做什么，这显然是在小程序里运行。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这里有一个简单的</font></font><a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/minicode.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">代码片段</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font><a href="https://developers.weixin.qq.com/s/R9Hm0Qm67Acd" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://developers.weixin.qq.com/s/R9Hm0Qm67Acd</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，可以使用开发者工具打开看看效果。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">由于kbone是通过提供灯光的方式来实现同构的，所以它的优势很明显：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">大部分流行的前端框架都能够在 kbone 上运行，比如 Vue、React、Preact 等。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持更完整的前端框架特性，因为 kbone 不会对框架底层进行修改（比如 Vue 中的 v-html 指令、Vue-router 插件）。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供了常用的 dom/bom 接口，让用户用代码来做一个紧急的事情，很可能从 Web 端迁移到小程序端。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在小程序端运行时，仍然可以使用小程序本身的特性（比如像live-player组件内置、分包功能）。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供了一些Dom扩展接口，让一些无法完美兼容到小程序端的接口也有替代使用方案（比如getComputedStyle接口）。</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用</font></font></h2><a id="user-content-使用" class="anchor-element" aria-label="永久链接：使用" href="#使用"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为了可以让开发者可以更自由地进行项目的搭建，以下提供了清晰的方式，可选其一即可：</font></font></p>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用 kbone-cli 快速开发</font></font></h3><a id="user-content-使用-kbone-cli-快速开发" class="anchor-element" aria-label="永久链接：使用 kbone-cli 快速开发" href="#使用-kbone-cli-快速开发"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于新项目，可以使用</font></font><code>kbone-cli</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">来创建项目，首先安装</font></font><code>kbone-cli</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>npm install -g kbone-cli
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="npm install -g kbone-cli" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">创建项目：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>kbone init my-app
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="kbone init my-app" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">进入项目，按照README.md的指引进行开发：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>// 开发小程序端
 npm run mp
 
 // 开发 Web 端
@@ -45,94 +47,82 @@ npm run web
 
 // 构建 Web 端
 npm run build
-```
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="// 开发小程序端
+npm run mp
 
-> PS：项目基于 webpack 构建，关于 webpack 方面的配置可以[点此查看](https://webpack.js.org/configuration/)，而关于小程序构建相关的详细配置细节可以[参考此文档](https://wechat-miniprogram.github.io/kbone/docs/guide/tutorial.html)。
+// 开发 Web 端
+npm run web
 
-### 使用模板快速开发
-
-除了使用 kbone-cli 外，也可以直接将现有模板 clone 下来，然后在模板基础上进行开发改造：
-
-* [Vue 项目模板](https://github.com/wechat-miniprogram/kbone-template-vue)
-* [React 项目模板](https://github.com/wechat-miniprogram/kbone-template-react)
-* [kbone-ui 项目模板](https://github.com/wechat-miniprogram/kbone-template-kboneui)
-* [Preact 项目模板](https://github.com/wechat-miniprogram/kbone-template-preact)
-* [Omi 项目模板](https://github.com/omijs/template-kbone)
-
-项目 clone 下来后，按照项目中 README.md 的指引进行开发。
-
-### 手动配置开发
-
-此方案基于 webpack 构建实现，如果你不想要使用官方提供的模板，想要更灵活地搭建自己的项目，又或者是想对已有的项目进行改造，则需要自己补充对应配置来实现 kbone 项目的构建。
-
-一般需要补充两个配置：
-
-* 构建到小程序代码的[ webpack 配置](https://webpack.js.org/configuration/)
-* 使用 webpack 构建中使用到的特殊插件[ mp-webpack-plugin 配置](https://wechat-miniprogram.github.io/kbone/docs/config/)
-
-[点此可以查看](https://wechat-miniprogram.github.io/kbone/docs/guide/tutorial.html)具体配置方式和操作流程。
-
-## kbone-ui
-
-[kbone-ui](https://github.com/wechat-miniprogram/kbone-ui) 是一个能同时支持 小程序(kbone) 和 vue 框架开发的多端 UI 库。
-
-* 即可以基于 `kbone` 同时开发小程序和 H5，也可以单独使用开发 H5 应用。
-* 支持以 Vue 语法来支持 H5 端和小程序端运行
-* 对齐 [微信weui](https://weui.io) 样式组件
-
-
-## 文档
-
-更为详细的说明和指引，可点击[查看文档](https://wechat-miniprogram.github.io/kbone/docs/)。
-
-> PS：如果文档无法访问，可尝试访问[备份文档镜像](https://developers.weixin.qq.com/miniprogram/kbone/docs/)。
-
-## 问题
-
-此方案虽然将整个 Web 端框架包含进来并提供了适配层，但是也不是银弹，无法满足所有场景，具体限制可参考[问题文档](https://wechat-miniprogram.github.io/kbone/docs/qa/)。如果还遇到其他问题，可在 [issue](https://github.com/wechat-miniprogram/kbone/issues) 中反馈。
-
-## 选择
-
-业内其实已经出现了很多关于同构的解决方案了，每个方案都有自己的优劣，不存在能够完美解决所有问题的方案。kbone 也一样，它的优势在上面提到过，而它的不足也是它的实现原理带来的。kbone 是使用一定的性能损耗来换取更为全面的 Web 端特性支持。
-
-所以关于性能方面，如果你对小程序的性能特别苛刻，建议直接使用原生小程序开发；如果你的页面节点数量特别多（通常在 1000 节点以上），同时还要保证在节点数无限上涨时仍然有稳定的渲染性能的话，可以尝试一下业内采用静态模板转译的方案；其他情况就可以直接采用 kbone 了。
-
-## 贡献者
-
+// 构建 Web 端
+npm run build" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<blockquote>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PS：项目基于webpack构建，关于webpack方面的配置可以</font></font><a href="https://webpack.js.org/configuration/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">点此查看</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，而关于小程序构建相关的详细配置细节可以</font></font><a href="https://wechat-miniprogram.github.io/kbone/docs/guide/tutorial.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">参考此文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+</blockquote>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用快速模板开发</font></font></h3><a id="user-content-使用模板快速开发" class="anchor-element" aria-label="永久链接：使用模板快速开发" href="#使用模板快速开发"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">除了使用 kbone-cli 外，也可以直接将现有模板克隆下来，然后在模板基础上进行开发改造：</font></font></p>
+<ul dir="auto">
+<li><a href="https://github.com/wechat-miniprogram/kbone-template-vue"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Vue 项目模板</font></font></a></li>
+<li><a href="https://github.com/wechat-miniprogram/kbone-template-react"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">React 项目模板</font></font></a></li>
+<li><a href="https://github.com/wechat-miniprogram/kbone-template-kboneui"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">kbone-ui 项目模板</font></font></a></li>
+<li><a href="https://github.com/wechat-miniprogram/kbone-template-preact"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Preact 项目模板</font></font></a></li>
+<li><a href="https://github.com/omijs/template-kbone"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Omi 项目模板</font></font></a></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目clone下来后，按照项目中README.md的指引进行开发。</font></font></p>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">手动配置开发</font></font></h3><a id="user-content-手动配置开发" class="anchor-element" aria-label="永久链接：手动配置开发" href="#手动配置开发"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本方案基于 webpack 构建实现，如果你不想使用官方提供的模板，想要更灵活地搭建自己的项目，又或者是想对已有的项目进行改造，则需要自己补充配置来实现 kbone 项目的构建。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">一般需要补充两个配置：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建到</font></font><a href="https://webpack.js.org/configuration/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">webpack 配置的小程序代码</font></font></a></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用 webpack 构建中使用到的特殊插件</font></font><a href="https://wechat-miniprogram.github.io/kbone/docs/config/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mp-webpack-plugin 配置</font></font></a></li>
+</ul>
+<p dir="auto"><a href="https://wechat-miniprogram.github.io/kbone/docs/guide/tutorial.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">点此可以查看</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">具体配置方式和操作流程。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">kbone-ui</font></font></h2><a id="user-content-kbone-ui" class="anchor-element" aria-label="永久链接：kbone-ui" href="#kbone-ui"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><a href="https://github.com/wechat-miniprogram/kbone-ui"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">kbone-ui</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是一个能够同时支持小程序(kbone)和vue框架开发的多端UI库。</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">即可以基于</font></font><code>kbone</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和H5同时开发小程序，也可以单独使用开发H5应用。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持以Vue语法来支持H5端和小程序端运行</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安东尼</font></font><a href="https://weui.io" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">微信weui</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">样式组件</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文档</font></font></h2><a id="user-content-文档" class="anchor-element" aria-label="永久链接：文档" href="#文档"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最详细的说明和指引，可点击</font></font><a href="https://wechat-miniprogram.github.io/kbone/docs/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<blockquote>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PS：如果文档无法访问，可以尝试访问</font></font><a href="https://developers.weixin.qq.com/miniprogram/kbone/docs/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">备份文档副本</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+</blockquote>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">问题</font></font></h2><a id="user-content-问题" class="anchor-element" aria-label="永久链接： 问题" href="#问题"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">该方案虽然将整个Web端框架包含进来并提供了车辆层，也不是银弹，无法满足所有场景，具体限制可参考</font></font><a href="https://wechat-miniprogram.github.io/kbone/docs/qa/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">问题文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。如果还遇到其他问题，可在</font></font><a href="https://github.com/wechat-miniprogram/kbone/issues"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">问题</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中反馈。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">选择</font></font></h2><a id="user-content-选择" class="anchor-element" aria-label="永久链接：选择" href="#选择"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">内置其实已经出现了很多关于同构的解决方案了，每个方案都有自己的优，不存在能够完美解决所有问题的方案。kbone也一样，它的劣势在上面提到过，而它的kbone 是利用一定的性能采样来获取更全面的 Web 端特性支持。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">所以关于性能方面，如果你对小节目的特别性别，直接建议使用母性小节目开发；如果你的页面节点数量特别多（通常在1000个节点以上），同时还要保证在节点数无限增长时仍然有稳定的渲染性能的话，可以尝试一下采用静态模板转译的方案；其他情况就可以直接采用 kbone 了。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">贡献者</font></font></h2><a id="user-content-贡献者" class="anchor-element" aria-label="永久链接：贡献者" href="#贡献者"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
 <table>
   <tbody>
     <tr>
-      <td><a target="_blank" href="https://github.com/JuneAndGreen"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/7931744?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/lastleaf"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/2016597?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/dntzhang"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/7917954?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/JimmyVV"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/12005455?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/stephenml"><img width="60px"
-            src="https://avatars1.githubusercontent.com/u/11658803?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/jayjliang"><img width="60px"
-            src="https://avatars1.githubusercontent.com/u/9363437?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/ylx911229"><img width="60px"
-            src="https://avatars1.githubusercontent.com/u/18202235?s=60&amp;v=4"></a></td>
-      <td width="92px"><a target="_blank" href="https://github.com/wechat-miniprogram/kbone/graphs/contributors">感谢你们</a></td>
+      <td><a href="https://github.com/JuneAndGreen"><img width="60px" src="https://avatars2.githubusercontent.com/u/7931744?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td><a href="https://github.com/lastleaf"><img width="60px" src="https://avatars2.githubusercontent.com/u/2016597?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td><a href="https://github.com/dntzhang"><img width="60px" src="https://avatars2.githubusercontent.com/u/7917954?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td><a href="https://github.com/JimmyVV"><img width="60px" src="https://avatars2.githubusercontent.com/u/12005455?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td><a href="https://github.com/stephenml"><img width="60px" src="https://avatars1.githubusercontent.com/u/11658803?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td><a href="https://github.com/jayjliang"><img width="60px" src="https://avatars1.githubusercontent.com/u/9363437?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td><a href="https://github.com/ylx911229"><img width="60px" src="https://avatars1.githubusercontent.com/u/18202235?s=60&amp;v=4" style="max-width: 100%;"></a></td>
+      <td width="92px"><a href="https://github.com/wechat-miniprogram/kbone/graphs/contributors"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">谢谢你们</font></font></a></td>
     </tr>
   </tbody>
 </table>
-
-查看[代码贡献规范](https://wechat-miniprogram.github.io/kbone/docs/guide/develop.html)。
-
-## 交流
-
-QQ 交流群：926335938
-
-使用相关问题可在 [Kbone社区](https://developers.weixin.qq.com/community/minihome/mixflow/1213301129006825473) 发帖
-
-## 案例
-
-![微信开放社区](./docs/images/code1.jpg)
-
-## License
-
-[MIT](./LICENSE)
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看</font></font><a href="https://wechat-miniprogram.github.io/kbone/docs/guide/develop.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">代码贡献规范</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">交流</font></font></h2><a id="user-content-交流" class="anchor-element" aria-label="永久链接： 交流" href="#交流"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">QQ交流群：926335938</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用相关问题可在</font></font><a href="https://developers.weixin.qq.com/community/minihome/mixflow/1213301129006825473" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Kbone社区</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发帖</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">案例</font></font></h2><a id="user-content-案例" class="anchor-element" aria-label="永久链接：案例" href="#案例"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/Tencent/kbone/blob/develop/docs/images/code1.jpg"><img src="/Tencent/kbone/raw/develop/docs/images/code1.jpg" alt="微信开放社区" style="max-width: 100%;"></a></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">执照</font></font></h2><a id="user-content-license" class="anchor-element" aria-label="永久链接：许可证" href="#license"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><a href="/Tencent/kbone/blob/develop/LICENSE"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">麻省理工学院</font></font></a></p>
+</article></div>
